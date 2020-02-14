@@ -1,4 +1,7 @@
 [dev-packages]
+pytest = "*"
+flake8 = "*"
+mypy = "*"
 
 [packages]
 python-telegram-bot = ">=12.0.0"
