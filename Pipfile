@@ -2,6 +2,7 @@
 pytest = "*"
 flake8 = "*"
 mypy = "*"
+vulture = "*"
 
 [packages]
 python-telegram-bot = ">=12.0.0"
