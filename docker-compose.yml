@@ -1,0 +1,11 @@
+version: '2'
+services:
+    daily_vocabulary:
+        container_name: daily_vocabulary
+        image: eikendev/daily_vocabulary:latest
+        restart: unless-stopped
+        network_mode: bridge
+        volumes:
+            - /etc/localtime:/etc/localtime:ro
+            - /etc/timezone:/etc/timezone:ro
+            - ./mount/data:/home/app/data
