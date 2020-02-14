@@ -2,11 +2,7 @@ DIR_SRC=./daily_vocabulary
 DIR_TEST=./test
 
 .PHONY: all
-all: compile
-
-.PHONY: compile
-compile:
-	@echo "Nothing to compile."
+all: flake vulture check test
 
 .PHONY: clean
 clean:
@@ -22,11 +18,11 @@ run:
 
 .PHONY: test
 test:
-	@python3 -m pytest -vv
+	@pytest -vv
 
 .PHONY: tags
 tags:
-	ctags -R --extra=+f ${DIR_SRC}
+	@ctags -R --extra=+f ${DIR_SRC}
 
 .PHONY: flake
 flake:
