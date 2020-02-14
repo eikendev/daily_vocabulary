@@ -1,0 +1,15 @@
+dist: bionic
+env:
+  global:
+    - APP_NAME=daily_vocabulary
+    - secure: hewaNNanffDy34GFTN3ezX5+/x7CWrFm0yBc7dKKDFlKHD9tZmTpKaZrRDff6Y2ysxEFiJ6nrQNPzQ1mb2UcM2S6kans1pavW7AgZEf/m47YpC9p5dOyn9J0kLElbY0fKXxwdAtvbTgIHd/ZGH+NV6azXH4FAuLkiGFg0OpzDxzYuWgkaFD8xZaghODqosw8GoJTuAKEF6GrGbmf8eJbjjW5/SUEs5OOWJWhC8c4nKQIp/LCsRSTBQPo6gDtRfjuVKmNvFtwy0YYjvYhDYzkrGRUyPTFa0kSLPMi3bFv7+ftH8fR3GtWZ/kg24JyvvVN3cXEuhMNcXZs2VR2S8zPvGnUorO2vg342P5mTPlKYK4IF+lFSlRcWAQVKHXyX2c0g5XpZjqU4oIK000jTsuivVF9gZT83j57haR5OvDRQlEiRgvUPlWGK+12oZH2DSOfKT0I3tOZGcjh+Wk6ZQbo6KzY37a43668tgtNziG/HSRp1YlB1m9Q4zuokbOmNTcQeRaP5IPJM2nz/SU7eciDmgECZqSutG2k7cLseTCFQ6YDmjwUfXu+OsM8nofYCZM7dTl1isCg9k4uv0Y1j0jqCThHe/mohGhhHywUbAuEFAhVFNA2GLok6pVtxboFgg1pDEEu5bZSLg1/yKq5wWai5xcT3I6EhQ0mNOPerV0wX24=
+    - secure: T2pyEUNp/VSNcV/YuneY7iK3pi86fKZcITAruoPldNgBcXmEiZwwL/IW296q+72Rd2uxh38LqxOGEq1JyDCpgY4CpKhPkvuYM52pdNgKGZHY3BX4owyUpIhODuhRdLpaD2h4VLQOtvb+nVNiJdycB13iO4oipQCch+hgzBHgGsYWNu3+Q23BIkoDOgpuaGdaOzXC356ib8/FoMNlvPqo2CmEW4uMrIBwT9HAHIBwTXCMA4GxuaRFFlPRKnEYGEKUaAqUb4GwS51fUNJRADyxi/WCiZYJJfmDSHnJfRLCHRb5+n3lvlvcr+dyygQu2tKLuG0/GaActzguWVlF7pLMq8bqzPnbjlmyqAnHSBZ9GaxAk8EyLczDqQT4hoW+fS/gPsT/E8DiXKoLPo6y1GPIKe/Rr+PrE5FtfpwW568O2+zjtsEKe0qCAWM4mOVuMaftoOVIoxgrRHxLxCNU5lT3fzXuynWNL7Qx4uyTk2BR/Hp/ras2Hj4K1RMORH8UC7Gn/gMjigwKkb7kyHRqyvDxEaDnfyRBHAoiJMMRIuw/oCv7OUGwzgkF3JhSutSxLYZMmqv38kxyO5LSkj/iRxSg70+0Vi715KDKiBHLhkLj2CVvtKpIo0hfzVUNht8cbA9fwtqe7rUtdOei6KrhgNJ4VWmWcdejiBXeIXRCbwM+Lpw=
+jobs:
+  include:
+  - stage: build docker image
+    script:
+    - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+    - docker build -t "$APP_NAME" .
+    - docker images
+    - docker tag "$APP_NAME" "$DOCKER_USERNAME/$APP_NAME"
+    - docker push "$DOCKER_USERNAME/$APP_NAME"
