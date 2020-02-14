@@ -1,0 +1,15 @@
+data/config.ini
+data/storage.db
+data/words.json
+
+__pycache__/
+.mypy_cache
+.pytest_cache/
+*.pyc
+*.pyo
+
+env/
+dist/
+*.egg-info/
+
+tags
