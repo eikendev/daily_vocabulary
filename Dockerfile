@@ -1,4 +1,4 @@
-FROM python:3-slim as base
+FROM python:3-alpine as base
 
 ENV LANG=C.UTF-8 \
     LC_ALL=C.UTF-8 \
@@ -6,12 +6,17 @@ ENV LANG=C.UTF-8 \
     PYTHONFAULTHANDLER=1 \
     PYTHONUNBUFFERED=1
 
+RUN set -xe \
+	&& apk update \
+	&& apk upgrade \
+	&& apk del --progress --purge \
+	&& rm -rf /var/cache/apk/*
+
 FROM base AS dependencies
 
 RUN set -xe \
     && pip install pipenv \
-    && apt-get update \
-    && apt-get install -y --no-install-recommends gcc
+    && apk add --no-cache build-base gcc linux-headers libffi-dev openssl-dev python3-dev
 
 COPY Pipfile .
 COPY Pipfile.lock .
@@ -26,12 +31,8 @@ COPY --from=dependencies /.venv /.venv
 ENV PATH "/.venv/bin:$PATH"
 
 RUN set -xe \
-	&& groupadd --gid 2000 --system app \
-	&& adduser -uid 2000 --gecos '' --disabled-password --gid 2000 app \
-	&& apt-get update \
-	&& apt-get upgrade -y \
-    && apt-get purge -y --auto-remove \
-    && rm -rf /var/lib/apt/lists/*
+	&& addgroup -g 82 -S app \
+	&& adduser -u 82 -D -g '' -G app app
 
 WORKDIR /home/app
 
