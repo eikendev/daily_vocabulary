@@ -1,4 +1,4 @@
-FROM python:3-alpine as base
+FROM python:3-alpine AS base
 
 ENV LANG=C.UTF-8 \
     LC_ALL=C.UTF-8 \
