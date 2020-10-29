@@ -7,16 +7,18 @@ from telegram import ParseMode
 from telegram.error import TelegramError
 from telegram.ext import CallbackContext
 
+from ..decorators import session_function
 from ..database.models import Receiver
-from ..decorators import session_request
 from ..utils import select_word, build_message
 
 logger = logging.getLogger('daily_vocabulary')
 
 
-@session_request
-def job_subscription(context: CallbackContext, session):
+def job_subscription(*args, **kwargs):
+    session_function(job_subscription_inner, *args, **kwargs)
 
+
+def job_subscription_inner(context: CallbackContext, session):
     now = datetime.now()
     today = now.date()
     later = now + timedelta(minutes=2)
