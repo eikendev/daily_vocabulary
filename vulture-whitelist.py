@@ -1,0 +1,6 @@
+id  # unused variable (daily_vocabulary/database/models.py:14)
+first_seen  # unused variable (daily_vocabulary/database/models.py:16)
+times_subscribed  # unused variable (daily_vocabulary/database/models.py:18)
+_.first_seen  # unused attribute (daily_vocabulary/database/models.py:27)
+_.times_subscribed  # unused attribute (daily_vocabulary/database/models.py:29)
+_.times_subscribed  # unused attribute (daily_vocabulary/database/models.py:58)
