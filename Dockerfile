@@ -14,11 +14,9 @@ RUN set -xe \
 
 FROM base AS dependencies
 
-# https://stackoverflow.com/a/65660194
 RUN set -xe \
     && pip install pipenv \
-    && apk add --no-cache build-base gcc linux-headers libffi-dev openssl-dev python3-dev \
-    && pip install cryptography
+    && apk add --no-cache build-base gcc linux-headers libffi-dev openssl-dev python3-dev rust cargo
 
 COPY Pipfile .
 COPY Pipfile.lock .
