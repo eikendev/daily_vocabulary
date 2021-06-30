@@ -26,13 +26,16 @@ RUN set -xe \
 
 FROM base AS runtime
 
+ARG USER_ID=9000
+ARG GROUP_ID=9000
+
 COPY --from=dependencies /.venv /.venv
 
 ENV PATH "/.venv/bin:$PATH"
 
 RUN set -xe \
-	&& addgroup -g 82 -S app \
-	&& adduser -u 82 -D -g '' -G app app
+	&& addgroup -g ${GROUP_ID} -S app \
+	&& adduser -u ${USER_ID} -D -g '' -G app app
 
 WORKDIR /home/app
 
