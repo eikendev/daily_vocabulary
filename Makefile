@@ -43,3 +43,19 @@ tags:
 		--sort=yes \
 		--totals=yes \
 		${DIR_SRC}
+
+.PHONY: build_image
+build_image:
+	podman build \
+		-t \
+		local/${MODULE_NAME} .
+
+.PHONY: run_image
+run_image:
+	podman run \
+		-ti \
+		-v ./data:/home/app/data \
+		--rm \
+		--security-opt label=disable \
+		--name=${MODULE_NAME} \
+		local/${MODULE_NAME}
